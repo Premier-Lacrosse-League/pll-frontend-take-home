@@ -41,20 +41,21 @@ export const colors = {
   
   export type Player = {
     age?: number,
-    firstName?: string,
+    firstName: string,
     height?: string,
     isCaptain?: boolean,
     jerseyNum?: number,
-    lastName?: string,
+    lastName: string,
     officialId?: string,
-    slug?: string,
+    slug: string,
     bio?: string,
-    postion?: string,
+    position?: string,
     positionName?: string,
     profileUrl?: string,
     weight?: number,
     hometown?: string,
-    stats?: {
+    stats: {
+      [key: string]: any,
       GAA?: number,
       assists?: number,
       causedTurnovers?: number,
@@ -101,6 +102,13 @@ export const colors = {
       twoPointShotsOnGoalPct?: number,
       twoPtGaa?: number,
     }
+  }
+
+  export const defaultPlayer: Player = {
+    firstName: '',
+    lastName: '',
+    slug: '',
+    stats: [],
   }
 
   export const statList = [
