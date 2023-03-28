@@ -6,7 +6,7 @@ import { styled } from '@mui/system'
 import CardHeader from '@mui/material/CardHeader';
 import Avatar from '@mui/material/Avatar';
 import Skeleton from '@mui/material/Skeleton';
-import { Player, colors, getPlayerInfo, getPlayerName, statCompare } from '../../consts';
+import { Player, colors, getPlayerInfo, getPlayerName, statCompare, isNumber } from '../../consts';
 
 type Props = {
   player: Player;
@@ -93,7 +93,11 @@ export const PlayerCard: React.FC<Props> = ({ player, otherPlayer, statsToShow }
                 {statsToShow.map((stat) => (
                   <Stat className={`${statCompare(player, otherPlayer, stat) ? 'GoldStat' : 'StandardStat'}`}>
                     <Typography key={stat} variant='body1'>
-                      {parseFloat(player.stats[stat].toFixed(2))}
+                      {isNumber(player.stats[stat]) ? (
+                        parseFloat(player.stats[stat].toFixed(2))
+                      ) : (
+                        player.stats[stat]
+                      )}
                     </Typography>
                   </Stat>
                 ))}

@@ -241,3 +241,7 @@ export const colors = {
   export const statCompare = (playerA: Player, playerB: Player, stat: string): boolean => {
     return (playerA.stats[stat] > playerB.stats[stat]);
   }
+
+  export const isNumber = (value: any): boolean => {
+    return typeof value === 'number' && !isNaN(value);
+  }
