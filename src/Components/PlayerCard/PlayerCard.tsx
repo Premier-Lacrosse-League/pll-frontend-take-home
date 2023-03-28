@@ -6,15 +6,16 @@ import { styled } from '@mui/system'
 import CardHeader from '@mui/material/CardHeader';
 import Avatar from '@mui/material/Avatar';
 import Skeleton from '@mui/material/Skeleton';
-import { Player, colors, getPlayerInfo, getPlayerName } from '../../consts';
+import { Player, colors, getPlayerInfo, getPlayerName, statCompare } from '../../consts';
 
 type Props = {
   player: Player;
+  otherPlayer: Player;
   statsToShow: string[];
 };
 
 const Wrapper = styled(Box)({
-  
+
 });
 
 const PlayerInfo = styled(Card)({
@@ -27,9 +28,14 @@ const PlayerStats = styled(Box)({
   verticalAlign: 'middle',
 });
 
-export const PlayerCard: React.FC<Props> = ({ player, statsToShow }) => {
+const Stat = styled('div')({
+  padding: '.25rem'
+})
+
+export const PlayerCard: React.FC<Props> = ({ player, otherPlayer, statsToShow }) => {
   const [skeleton, setSkeleton] = React.useState(true)
 
+  //Refreshes Skeleton if firstName is set to defaultPlayer value of ''
   React.useEffect(() => {
     setSkeleton(player.firstName === '');
   }, [player]);
@@ -43,7 +49,9 @@ export const PlayerCard: React.FC<Props> = ({ player, statsToShow }) => {
               skeleton ? (
                 <Skeleton animation="wave" variant="circular" width={48} height={48} />
               ) : (
-                <Avatar alt={player.slug} src={player?.profileUrl} sx={{ width: 48, height: 48, backgroundColor: colors.white }}/>
+                <a href={player.instagramUrl} target='_blank' rel="noreferrer">
+                  <Avatar alt={player.slug} src={player?.profileUrl} sx={{ width: 48, height: 48, backgroundColor: colors.white }}/>
+                </a>
               )
             }
             title={
@@ -71,21 +79,23 @@ export const PlayerCard: React.FC<Props> = ({ player, statsToShow }) => {
           {
             skeleton ? (
               <Box>
-                {statsToShow.map((stat) => (
+                {statsToShow.map(() => (
                   <Skeleton
                     animation="wave"
                     height={25}
-                    width="80%"
-                    style={{ marginBottom: '.5rem' }}
+                    width="100%"
+                    style={{ paddingBottom: '.5rem' }}
                   />
                 ))}
               </Box>
             ) : (
               <Box>
                 {statsToShow.map((stat) => (
-                  <Typography key={stat} variant='body1' sx={{ marginBottom: '.5rem', borderBottom: 1 }}>
-                    {player.stats[stat]}
-                  </Typography>
+                  <Stat className={`${statCompare(player, otherPlayer, stat) ? 'GoldStat' : 'StandardStat'}`}>
+                    <Typography key={stat} variant='body1'>
+                      {player.stats[stat]}
+                    </Typography>
+                  </Stat>
                 ))}
               </Box>
             )

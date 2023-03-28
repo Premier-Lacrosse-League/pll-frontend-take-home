@@ -2,8 +2,9 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/system'
-import Button from '@mui/material/Button';
-import { colors } from '../../consts';
+import { colors, statsAsTitles } from '../../consts';
+import Avatar from '@mui/material/Avatar';
+import Button  from '@mui/material/Button';
 
 type Props = {
   statsToShow: string[];
@@ -20,33 +21,37 @@ const Title = styled(Box)({
   height: '4rem',
   display: 'flex',
   flexDirection: 'column',
-  paddingTop: '1.25rem',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
 });
 
 const Stats = styled(Box)({
-  marginTop: '.75rem',
+  paddingTop: '2rem',
 });
+
+const Logo = styled(Avatar)({
+  alignSelf: 'top'
+})
 
 const ResetButton = styled(Button)({
   color: colors.text,
 });
 
-export const StatDisplay: React.FC<Props> = ({statsToShow, clear, onClear}) => {
+
+export const StatDisplay: React.FC<Props> = ({ statsToShow, clear, onClear }) => {
   return (
     <>
       <Wrapper>
         <Title >
-          <Typography variant={'h6'}>
-            VS.
-          </Typography>
+          <Logo alt='pll_logo' src="/images/pll_logo.png" sx={{height: 56, width: 56 }}/>
           {
             !clear ? <ResetButton onClick={onClear}>Clear</ResetButton> : ''
           }
         </Title>
         <Stats>
           {statsToShow.map((stat) => (
-            <Typography variant='body1' sx={{ marginBottom: '.5rem', borderBottom: 1, borderColor: colors.white }}>
-              {stat}
+            <Typography variant='body1' sx={{ padding: '.25rem', borderBottom: 1, borderColor: colors.white }}>
+              {statsAsTitles[stat]}
             </Typography>
           ))}
         </Stats>

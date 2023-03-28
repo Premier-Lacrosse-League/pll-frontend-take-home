@@ -54,6 +54,7 @@ export const colors = {
     profileUrl?: string,
     weight?: number,
     hometown?: string,
+    instagramUrl?: string,
     stats: {
       [key: string]: any,
       GAA?: number,
@@ -111,6 +112,56 @@ export const colors = {
     stats: [],
   }
 
+  type StatTitles = Record<string, string>;
+
+  // Allows for easy translation between stat name and something easily readable
+  export const statsAsTitles: StatTitles = {
+    "GAA": 'Goals Allowed Avg.',
+    "assists": 'Assists',
+    "causedTurnovers": 'Caused Turnovers',
+    "faceoffPct": 'Faceoff Pct.',
+    "faceoffs": 'Faceoffs',
+    "faceoffsLost": 'Faceoffs Lost',
+    "faceoffsWon": 'Faceoffs Won',
+    "foRecord": 'Faceoff Record',
+    "gamesPlayed": 'Games Played',
+    "gamesStarted": 'Games Started',
+    "goalieLosses": 'Goalie Losses',
+    "goalieTies": 'Goalie Ties',
+    "goalieWins": 'Goalie Wins',
+    "goals": 'Goals',
+    "goalsAgainst": 'Goals Against',
+    "groundBalls": 'Ground Balls',
+    "numPenalties": 'Penalties',
+    "onePointGoals": '1pt Goals',
+    "pim": 'Penalty Minutes',
+    "pimValue": 'Penalty Minutes',
+    "plusMinus": 'Plus-Minus',
+    "points": 'Points',
+    "powerPlayGoals": 'PPG',
+    "powerPlayGoalsAgainst": 'PPG Against',
+    "powerPlayShots": 'Power Play Shots',
+    "saa": 'Scores Against Avg.',
+    "savePct": 'Save %',
+    "saves": 'Saves',
+    "scoresAgainst": 'Scores Against',
+    "shortHandedGoals": 'Short Hand Goals',
+    "shortHandedGoalsAgainst": 'Short Hand Goals Against',
+    "shortHandedShots": 'Short Hand Shots',
+    "shotPct": 'Shot %',
+    "shotsOnGoal": 'Shots on Goal',
+    "shotsOnGoalPct": 'Shots on Goal %',
+    "tof": 'Turnovers Forced',
+    "turnovers": 'Turnovers',
+    "twoPointGoals": '2pt Goals',
+    "twoPointGoalsAgainst": '2pt Goals Against',
+    "twoPointShots": '2pt Shots',
+    "twoPointShotPct": '2pt Shot %',
+    "twoPointShotsOnGoal": '2pt Shots on Goal',
+    "twoPointShotsOnGoalPct": '2pt Shots on Goal %',
+    "twoPtGaa": '2pt Goals Allowed Avg.',
+  }
+
   export const statList = [
     "GAA",
     "assists",
@@ -158,6 +209,7 @@ export const colors = {
     "twoPtGaa",
   ]
 
+  // Assembles Player's Full Name
   export const getPlayerName = (player: Player) => {
     if(player.firstName !== '') {
       return player.firstName + ' ' +  player.lastName;
@@ -166,6 +218,7 @@ export const colors = {
     }
   }
   
+  // Assembles Player's Information
   export const getPlayerInfo = (player?: Player) => {
     if(player?.jerseyNum && player?.positionName) {
       let playerInfo = '#' + player.jerseyNum + ' | ' +  player.positionName;
@@ -174,4 +227,17 @@ export const colors = {
     } else {
       return '';
     }
+  }
+
+  //Searching and Identifying by slug because it is much more friendly to read when logging vs officialId
+  export const searchPlayerBySlug = (slug: string, players: Player[]): Player => {
+    const foundPlayer = players.find((player) => player.slug === slug);
+    if(foundPlayer) return foundPlayer;
+    return defaultPlayer;
+  };
+
+  //Simple, assumes all stats are numbers and that a > number is 'better'
+  //returns true if playerA has a stat with a higher value than playerB, else false
+  export const statCompare = (playerA: Player, playerB: Player, stat: string): boolean => {
+    return (playerA.stats[stat] > playerB.stats[stat]);
   }

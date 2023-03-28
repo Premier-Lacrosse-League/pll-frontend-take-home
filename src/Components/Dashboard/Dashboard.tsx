@@ -69,15 +69,15 @@ export const Dashboard: React.FC<Props> = ({players}) => {
           clear={clear}
         />
         <CompareGrid>
-          <Grid container spacing={2} columns={16}>
+          <Grid container columns={16}>
             <Grid item xs={6}>
-              <PlayerCard player={playerA} statsToShow={statsToShow}/>
+              <PlayerCard player={playerA} otherPlayer={playerB} statsToShow={statsToShow}/>
             </Grid>
             <Grid item xs={4}>
-              <StatDisplay statsToShow={statsToShow} onClear={onClear} clear={clear}/>
+              <StatDisplay statsToShow={statsToShow} clear={clear} onClear={onClear} />
             </Grid>
             <Grid item xs={6}>
-              <PlayerCard player={playerB} statsToShow={statsToShow}/>
+              <PlayerCard player={playerB} otherPlayer={playerA} statsToShow={statsToShow}/>
             </Grid>
           </Grid>
         </CompareGrid>

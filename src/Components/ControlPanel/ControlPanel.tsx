@@ -8,7 +8,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import { styled } from '@mui/system'
 import Card from '@mui/material/Card';
 import Chip from '@mui/material/Chip';
-import { colors, defaultPlayer, Player, statList } from '../../consts';
+import { colors, Player, statList, statsAsTitles, searchPlayerBySlug } from '../../consts';
 
 type Props = {
   players: Player[];
@@ -62,24 +62,17 @@ export const ControlPanel: React.FC<Props> = ({players, clear, onPlayerSelected,
   };
 
   const handlePlayerAChange = (event: SelectChangeEvent) => {
-    const newPlayerASlug = event.target.value as string
+    const newPlayerASlug = event.target.value as string;
     setPlayerASlug(newPlayerASlug);
-    const newPlayerA = searchPlayerBySlug(newPlayerASlug);
+    const newPlayerA = searchPlayerBySlug(newPlayerASlug, players);
     onPlayerSelected(newPlayerA, "A");
   };
 
   const handlePlayerBChange = (event: SelectChangeEvent) => {
-    const newPlayerBSlug = event.target.value as string
+    const newPlayerBSlug = event.target.value as string;
     setPlayerBSlug(newPlayerBSlug);
-    const newPlayerB = searchPlayerBySlug(newPlayerBSlug);
+    const newPlayerB = searchPlayerBySlug(newPlayerBSlug, players);
     onPlayerSelected(newPlayerB, "B");
-  };
-
-  //Searching and Identifying by slug because it is much more friendly to read when logging vs officialId
-  const searchPlayerBySlug = (slug: string): Player => {
-    const foundPlayer = players.find((player) => player.slug === slug);
-    if(foundPlayer) return foundPlayer;
-    return defaultPlayer;
   };
 
   return (
@@ -116,34 +109,34 @@ export const ControlPanel: React.FC<Props> = ({players, clear, onPlayerSelected,
               </Select>
             </FormControl>
           </Box>
-
+        
           <Box>
-          <FormControl sx={{ m: 1, width: 300 }}>
-            <InputLabel>Stat Select</InputLabel>
-            <Select
-              multiple
-              value={stats}
-              onChange={handleStatsChange}
-              input={<OutlinedInput label="Stat Select"/>}
-              renderValue={(selected) => (
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                  {selected.map((value) => (
-                    <Chip key={value} label={value} />
-                  ))}
-                </Box>
-              )}
-              MenuProps={MenuProps}
-            >
-              {statList.map((stat) => (
-                <MenuItem
-                  key={stat}
-                  value={stat}
-                >
-                  {stat}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+            <FormControl sx={{ m: 1, width: 300 }}>
+              <InputLabel>Stat Select</InputLabel>
+              <Select
+                multiple
+                value={stats}
+                onChange={handleStatsChange}
+                input={<OutlinedInput label="Stat Select"/>}
+                renderValue={(selected) => (
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                    {selected.map((value) => (
+                      <Chip key={value} label={statsAsTitles[value]} />
+                    ))}
+                  </Box>
+                )}
+                MenuProps={MenuProps}
+              >
+                {statList.map((stat) => (
+                  <MenuItem
+                    key={stat}
+                    value={stat}
+                  >
+                    {statsAsTitles[stat]}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </Box>
       </ActionsPanel>
     </>

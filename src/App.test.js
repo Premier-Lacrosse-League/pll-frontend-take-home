@@ -1,24 +1,8 @@
-import { getPlayerInfo, getPlayerName, defaultPlayer } from './consts';
+import { getPlayerInfo, getPlayerName, defaultPlayer, statsAsTitles, searchPlayerBySlug } from './consts';
+import { playerSampleData } from './playerSampleData';
 
-const Lyle = {
-  firstName: 'Lyle',
-  lastName: 'Thompson',
-  jerseyNum: 4,
-  positionName: 'Attack',
-  stats: [],
-  slug: 'lyle-thompson',
-  isCaptain: true,
-}
-
-const Jeff = {
-  firstName: 'Jeff',
-  lastName: 'Teat',
-  jerseyNum: 7,
-  positionName: 'Attack',
-  stats: [],
-  slug: 'jeff-teat',
-  isCaptain: false,
-}
+const Lyle = playerSampleData[0]
+const Jeff = playerSampleData[1]
 
 describe('getPlayerName', () => {
   it('returns the full name if a Player object is provided: Player A', () => {
@@ -45,5 +29,36 @@ describe('getPlayerInfo', () => {
 
   it('returns an empty string if no Player object is provided', () => {
     expect(getPlayerInfo(defaultPlayer)).toEqual('');
+  });
+});
+
+describe('statsAsTitles', () => {
+  it('returns the correct stat as title for assists', () => {
+    expect(statsAsTitles['assists']).toEqual('Assists');
+  });
+
+  it('returns the correct stat as title for short hand goals against', () => {
+    expect(statsAsTitles['shortHandedGoalsAgainst']).toEqual('Short Hand Goals Against');
+  });
+
+  it('returns undefined for a stat that does not exist', () => {
+    expect(statsAsTitles['fakeStat']).toEqual(undefined);
+  });
+});
+
+describe('searchPlayerBySlug', () => {
+  it('returns the correct player based on slug lyle-thompson', () => {
+    const slug = 'lyle-thompson';
+    expect(searchPlayerBySlug(slug, playerSampleData)).toEqual(Lyle);
+  });
+
+  it('returns the correct player based on slug jeff-teat', () => {
+    const slug = 'jeff-teat';
+    expect(searchPlayerBySlug(slug, playerSampleData)).toEqual(Jeff);
+  });
+
+  it('returns defaultPlayer for a stat that does not exist', () => {
+    const slug = 'fake-slug';
+    expect(searchPlayerBySlug(slug, playerSampleData)).toEqual(defaultPlayer);
   });
 });
