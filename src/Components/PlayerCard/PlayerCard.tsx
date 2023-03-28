@@ -2,12 +2,11 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
-import { Player } from '../../consts';
 import { styled } from '@mui/system'
-import { colors } from '../../consts';
 import CardHeader from '@mui/material/CardHeader';
 import Avatar from '@mui/material/Avatar';
 import Skeleton from '@mui/material/Skeleton';
+import { Player, colors, getPlayerInfo, getPlayerName } from '../../consts';
 
 type Props = {
   player: Player;
@@ -35,29 +34,6 @@ export const PlayerCard: React.FC<Props> = ({ player, statsToShow }) => {
     setSkeleton(player.firstName === '');
   }, [player]);
 
-
-  const getPlayerName = () => {
-    if(player) {
-      return player.firstName + ' ' +  player.lastName;
-    } else {
-      return '';
-    }
-  }
-
-  const getPlayerInfo = () => {
-    if(player.jerseyNum && player.positionName) {
-      let playerInfo = '#' + player.jerseyNum + ' | ' +  player.positionName;
-      if(player.isCaptain) playerInfo += ' | Captain';
-      return playerInfo;
-    } else {
-      return '';
-    }
-  }
-
-  const renderStats = () => {
-    
-  }
-
   return (
     <>
       <Wrapper>
@@ -79,14 +55,14 @@ export const PlayerCard: React.FC<Props> = ({ player, statsToShow }) => {
                   style={{ marginBottom: 6 }}
                 />
               ) : (
-                getPlayerName()
+                getPlayerName(player)
               )
             }
             subheader={
               skeleton ? (
                 <Skeleton animation="wave" height={10} width="40%" />
               ) : (
-                getPlayerInfo()
+                getPlayerInfo(player)
               )
             }
           />

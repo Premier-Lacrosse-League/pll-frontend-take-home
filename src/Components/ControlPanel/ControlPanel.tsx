@@ -8,7 +8,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import { styled } from '@mui/system'
 import Card from '@mui/material/Card';
 import Chip from '@mui/material/Chip';
-import { colors, Player, statList } from '../../consts';
+import { colors, defaultPlayer, Player, statList } from '../../consts';
 
 type Props = {
   players: Player[];
@@ -79,12 +79,7 @@ export const ControlPanel: React.FC<Props> = ({players, clear, onPlayerSelected,
   const searchPlayerBySlug = (slug: string): Player => {
     const foundPlayer = players.find((player) => player.slug === slug);
     if(foundPlayer) return foundPlayer;
-    return {
-      firstName: '',
-      lastName: '',
-      slug: '',
-      stats: []
-    };
+    return defaultPlayer;
   };
 
   return (

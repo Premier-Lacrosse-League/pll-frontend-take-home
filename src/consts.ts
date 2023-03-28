@@ -157,3 +157,21 @@ export const colors = {
     "twoPointShotsOnGoalPct",
     "twoPtGaa",
   ]
+
+  export const getPlayerName = (player: Player) => {
+    if(player.firstName !== '') {
+      return player.firstName + ' ' +  player.lastName;
+    } else {
+      return '';
+    }
+  }
+  
+  export const getPlayerInfo = (player?: Player) => {
+    if(player?.jerseyNum && player?.positionName) {
+      let playerInfo = '#' + player.jerseyNum + ' | ' +  player.positionName;
+      if(player?.isCaptain) playerInfo += ' | Captain';
+      return playerInfo;
+    } else {
+      return '';
+    }
+  }
