@@ -43,7 +43,7 @@ export const PlayerCard: React.FC<Props> = ({ player, otherPlayer, statsToShow }
   return (
     <>
       <Wrapper>
-        <PlayerInfo>
+        <PlayerInfo elevation={4}>
           <CardHeader
             avatar={
               skeleton ? (
@@ -93,7 +93,7 @@ export const PlayerCard: React.FC<Props> = ({ player, otherPlayer, statsToShow }
                 {statsToShow.map((stat) => (
                   <Stat className={`${statCompare(player, otherPlayer, stat) ? 'GoldStat' : 'StandardStat'}`}>
                     <Typography key={stat} variant='body1'>
-                      {player.stats[stat]}
+                      {parseFloat(player.stats[stat].toFixed(2))}
                     </Typography>
                   </Stat>
                 ))}

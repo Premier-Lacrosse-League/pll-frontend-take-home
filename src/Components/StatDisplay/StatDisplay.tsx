@@ -35,8 +35,12 @@ const Logo = styled(Avatar)({
 
 const ResetButton = styled(Button)({
   color: colors.text,
+  background: colors.yellow,
+  '&:hover': {
+    color: colors.yellow,
+    background: colors.black,
+  }
 });
-
 
 export const StatDisplay: React.FC<Props> = ({ statsToShow, clear, onClear }) => {
   return (
@@ -45,7 +49,7 @@ export const StatDisplay: React.FC<Props> = ({ statsToShow, clear, onClear }) =>
         <Title >
           <Logo alt='pll_logo' src="/images/pll_logo.png" sx={{height: 56, width: 56 }}/>
           {
-            !clear ? <ResetButton onClick={onClear}>Clear</ResetButton> : ''
+            !clear ? <ResetButton onClick={onClear}  color="primary" size="small">Clear</ResetButton> : ''
           }
         </Title>
         <Stats>
