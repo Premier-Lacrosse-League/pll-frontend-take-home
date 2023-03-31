@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Player } from '../models'
 import { playerSampleData } from '../../../playerSampleData'
 
+import { styled } from '@mui/material'
+
 import { PlayerComparisonHeader } from '../components/PlayerComparisonHeader'
 import { PlayerComparisonStats } from '../components/PlayerComparisonStats'
 
@@ -17,14 +19,19 @@ export const PlayerComparison: React.FC = () => {
         setPlayers([playerSampleData[0], playerSampleData[1]])
     }, [])
 
+    const PlayerCardContainer = styled('div')({
+        backgroundColor: 'white',
+        maxHeight: '90vh',
+        height: '90vh',
+        maxWidth: '90vw',
+        width: '80vw',
+        borderRadius: '10px'
+    })
+
     return (
-        <div>
-            <div>
+        <PlayerCardContainer>
                 <PlayerComparisonHeader players={players}/>
-            </div>
-            <div>
                 <PlayerComparisonStats first={first} second={second} />
-            </div>
-        </div>
+        </PlayerCardContainer>
     )
 }
