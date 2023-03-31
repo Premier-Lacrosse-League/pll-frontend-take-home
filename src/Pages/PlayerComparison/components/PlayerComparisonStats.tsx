@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Player, Stats, StatFilter, ButtonsType } from '../models'
 
 const statFilters = {
@@ -55,6 +55,14 @@ const statFilters = {
     ]
 }
 
+const buttons = [
+    {title: 'Offensive Stats', name: 'offensiveStats'},
+    {title: 'Defensive Stats', name: 'defensiveStats'},
+    {title: 'Assorted Stats', name: 'assortedStats'},
+    {title: 'Faceoff Stats', name: 'faceoffStats'},
+    {title: 'Goalie Stats', name: 'goalieStats'}
+]
+
 interface PlayerComparisonStatsProps {
     first: Player | null;
     second: Player | null;
@@ -63,74 +71,65 @@ interface PlayerComparisonStatsProps {
 export const PlayerComparisonStats: React.FC<PlayerComparisonStatsProps> = ({first, second}) => {
 
     const [selectedFilter, setSelectedFilter] = useState<Array<StatFilter>>()
-    const [selectedStat, setSelectedStat] = useState<String>()
-    const [buttons, setButtons] = useState<ButtonsType>()
+    // const [selectedStat, setSelectedStat] = useState<String>()
+    const [primeButtons, setPrimeButtons] = useState<Array<ButtonsType>>()
 
-    const getInitialStats = () => {
+    const getInitialStats = useCallback(() => {
         if (first?.position === 'G'){
-            setSelectedStat('Goalie Stats')
             setSelectedFilter(statFilters.goalieStats)
+            setPrimeButtons([buttons[0], buttons[1], buttons[2], buttons[4]])
         } else if (first?.position === 'FO'){
-            setSelectedStat('Faceoff Stats')
             setSelectedFilter(statFilters.faceoffStats)
+            setPrimeButtons([buttons[0], buttons[1], buttons[2], buttons[3]])
         } else if (
             (first?.position === 'D') ||
             (first?.position === 'SSDM') ||
             (first?.position === 'LSM')
         ) {
-            setSelectedStat('Defensive Stats')
             setSelectedFilter(statFilters.defensiveStats)
-        } else {
-            setSelectedStat('Offensive Stats')
+            setPrimeButtons([buttons[0], buttons[1], buttons[2]])
+        } else if (first?.position === 'M'){
             setSelectedFilter(statFilters.offensiveStats)
+            setPrimeButtons([buttons[0], buttons[1], buttons[2], buttons[3]])
+        } else if (first?.position === 'A'){
+            setSelectedFilter(statFilters.offensiveStats)
+            setPrimeButtons([buttons[0], buttons[1], buttons[2]])
         }
-    }
-
-    // const handleClick = (event: Event) => {
-    //     let selected: String = event?.target?;
-
-    //     switch(selected) {
-    //         case 'Goalie Stats':
-    //             setSelectedStat('Goalie Stats');
-    //             setSelectedFilter(statFilters.goalieStats);
-    //             break;
-    //         case 'Faceoff Stats':
-    //             setSelectedStat(selected);
-    //             setSelectedFilter(statFilters.faceoffStats);
-    //             break;
-    //         case 'Defensive Stats':
-    //             setSelectedStat(selected);
-    //             setSelectedFilter(statFilters.defensiveStats);
-    //             break;
-    //         case 'Assorted Stats':
-    //             setSelectedStat(selected);
-    //             setSelectedFilter(statFilters.assortedStats);
-    //             break;
-    //         case 'Offensive Stats':
-    //             setSelectedStat(selected);
-    //             setSelectedFilter(statFilters.offensiveStats);
-    //             break;
-    //         default:
-    //             setSelectedStat('Offensive Stats');
-    //             setSelectedFilter(statFilters.offensiveStats);
-    //             break;
-    //     }
-    // }
+    }, [first, second])
 
     useEffect(() => {
-        getInitialStats()
-    })
+        getInitialStats();
+    }, [getInitialStats])
+
+    const handleClick = (selected: string) => {
+        switch(selected) {
+            case 'goalieStats':
+                setSelectedFilter(statFilters.goalieStats);
+                break;
+            case 'faceoffStats':
+                setSelectedFilter(statFilters.faceoffStats);
+                break;
+            case 'defensiveStats':
+                setSelectedFilter(statFilters.defensiveStats);
+                break;
+            case 'assortedStats':
+                setSelectedFilter(statFilters.assortedStats);
+                break;
+            case 'offensiveStats':
+                setSelectedFilter(statFilters.offensiveStats);
+                break;
+            default:
+                setSelectedFilter(statFilters.offensiveStats);
+                break;
+        }
+    }
 
     return (
         <div>
             <div>
-                {/**
-                 * offense button
-                 * defense button
-                 * assorted button
-                 * faceoff button
-                 * goalie button
-                 */}
+                 {primeButtons?.map(({title, name}) => {
+                    return <button onClick={() => handleClick(name)}>{title}</button>
+                 })}
             </div>
             <table>
                 <tbody>

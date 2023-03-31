@@ -6,5 +6,5 @@ export interface StatFilter {
 
 export interface ButtonsType {
     title: string;
-    fieldName: Object;
+    name: string;
 }
