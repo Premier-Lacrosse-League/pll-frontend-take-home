@@ -73,41 +73,41 @@ export const PlayerComparisonHeader: React.FC<PropsWithChildren<PlayerComparison
 
     return (
         <HeaderContainer>
-                {players?.map(player => {
-                    return (
-                        <PlayerHeaderContainer>
-                            <PlayerHeadshotNameContainer>
-                                <HeadshotContainer>
-                                    <HeadshotImage title={`${player.bio ? player.bio : ''}`} src={`${player?.profileUrl}`} alt={`${player?.lastName}`} />
-                                </HeadshotContainer>
-                            </PlayerHeadshotNameContainer>
+            {players?.map(player => {
+                return (
+                    <PlayerHeaderContainer>
+                        <PlayerHeadshotNameContainer>
+                            <HeadshotContainer>
+                                <HeadshotImage title={`${player.bio ? player.bio : ''}`} src={`${player?.profileUrl}`} alt={`${player?.lastName}`} />
+                            </HeadshotContainer>
+                        </PlayerHeadshotNameContainer>
+                        <ProfileContainer>
                             <ProfileContainer>
-                                <ProfileContainer>
-                                    <PlayerNameContainer>
-                                        <PlayerName>{player.firstName} {player.lastName}</PlayerName>
-                                        <div>{player.jerseyNum} | {player.country}</div>
-                                    </PlayerNameContainer>
-                                    <PlayerDescriptions>
-                                        <div>Position: </div>
-                                        <div>{player.positionName}</div>
-                                    </PlayerDescriptions>
-                                    <PlayerDescriptions>
-                                        <div>College: </div>
-                                        <div>{player.college} ({player.collegeYear})</div>
-                                    </PlayerDescriptions>
-                                    <PlayerDescriptions>
-                                        <div>Height/Weight:</div> 
-                                        <div>{player.height} / {player.weight}</div>
-                                    </PlayerDescriptions>
-                                    <PlayerDescriptions>
-                                        <div>Injury Status: </div>
-                                        <div>{getInjuryStatus(`${player.injuryStatus}`)}</div>
-                                    </PlayerDescriptions>
-                                </ProfileContainer>
+                                <PlayerNameContainer>
+                                    <PlayerName>{player.firstName} {player.lastName}</PlayerName>
+                                    <div>{player.jerseyNum} | {player.country}</div>
+                                </PlayerNameContainer>
+                                <PlayerDescriptions>
+                                    <div>Position: </div>
+                                    <div>{player.positionName}</div>
+                                </PlayerDescriptions>
+                                <PlayerDescriptions>
+                                    <div>College: </div>
+                                    <div>{player.college} ({player.collegeYear})</div>
+                                </PlayerDescriptions>
+                                <PlayerDescriptions>
+                                    <div>Height/Weight:</div> 
+                                    <div>{player.height} / {player.weight}</div>
+                                </PlayerDescriptions>
+                                <PlayerDescriptions>
+                                    <div>Injury Status: </div>
+                                    <div>{getInjuryStatus(`${player.injuryStatus}`)}</div>
+                                </PlayerDescriptions>
                             </ProfileContainer>
-                        </PlayerHeaderContainer>
-                    )
-                })}
+                        </ProfileContainer>
+                    </PlayerHeaderContainer>
+                )
+            })}
         </HeaderContainer>
     )
 }

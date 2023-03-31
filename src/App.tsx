@@ -18,7 +18,6 @@ const App: React.FC<React.PropsWithChildren<unknown>> = () => {
 
   return(
     <>
-      {/* <Home /> */}
       <PlayerCardBackground>
         <PlayerComparison />
       </PlayerCardBackground>

@@ -30,8 +30,8 @@ export const PlayerComparison: React.FC = () => {
 
     return (
         <PlayerCardContainer>
-                <PlayerComparisonHeader players={players}/>
-                <PlayerComparisonStats first={first} second={second} />
+            <PlayerComparisonHeader players={players}/>
+            <PlayerComparisonStats first={first} second={second} />
         </PlayerCardContainer>
     )
 }
