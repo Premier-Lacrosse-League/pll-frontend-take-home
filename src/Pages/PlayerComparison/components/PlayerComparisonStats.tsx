@@ -170,7 +170,9 @@ export const PlayerComparisonStats: React.FC<PlayerComparisonStatsProps> = ({fir
         display: 'inline-block',
         fontSize: '16px',
         ":hover": {
-            color: `${colors.yellow}`
+            color: `${colors.yellow}`,
+            background: 'black',
+            cursor: 'pointer'
         }
     })
 
@@ -226,11 +228,11 @@ export const PlayerComparisonStats: React.FC<PlayerComparisonStatsProps> = ({fir
             <ButtonContainer>
                 <ButtonBar>
                     {primeButtons?.map(({title, name}) => {
-                        return <Buttons onClick={() => handleClick(name)}>{title}</Buttons>
+                        return <Buttons key={title} onClick={() => handleClick(name)}>{title}</Buttons>
                     })}
                 </ButtonBar>
             </ButtonContainer>
-            <SelectedStatContainer>{selectedStat}</SelectedStatContainer>
+            <SelectedStatContainer data-testid='selectedStat'>{selectedStat}</SelectedStatContainer>
             <Table>
                 <tbody>
                     {selectedFilter?.map(({fieldName, title, tooltip}) => {
