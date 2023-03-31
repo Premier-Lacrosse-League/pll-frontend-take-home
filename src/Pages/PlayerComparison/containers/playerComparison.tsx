@@ -9,16 +9,18 @@ export const PlayerComparison: React.FC = () => {
 
     const [first, setFirst] = useState<Player | null>(null);
     const [second, setSecond] = useState<Player | null>(null);
+    const [players, setPlayers] = useState<Array<Player> | null>(null);
 
     useEffect(() => {
         setFirst(playerSampleData[0])
         setSecond(playerSampleData[1])
+        setPlayers([playerSampleData[0], playerSampleData[1]])
     }, [])
 
     return (
         <div>
             <div>
-                <PlayerComparisonHeader first={first} second={second}/>
+                <PlayerComparisonHeader players={players}/>
             </div>
             <div>
                 <PlayerComparisonStats first={first} second={second} />
