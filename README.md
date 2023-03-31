@@ -1,5 +1,7 @@
 # PLL Take Home Frontend
 
+<img width="1679" alt="Screenshot 2023-03-31 at 5 10 14 PM" src="https://user-images.githubusercontent.com/37080014/229232057-5dba47d8-ad7e-47bf-9b7a-74a6d0a05eaf.png">
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Project Description
