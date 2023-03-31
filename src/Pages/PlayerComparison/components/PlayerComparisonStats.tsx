@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { Player, Stats, StatFilter, ButtonsType } from '../models'
 
 import { styled } from '@mui/material'
-import { colors, fontSizes } from '../../../consts'
+import { colors } from '../../../consts'
 
 const statFilters = {
     offensiveStats: [
@@ -103,7 +103,7 @@ export const PlayerComparisonStats: React.FC<PlayerComparisonStatsProps> = ({fir
             setSelectedFilter(statFilters.offensiveStats)
             setPrimeButtons([buttons[0], buttons[1], buttons[2]])
         }
-    }, [first, second])
+    }, [first])
 
     useEffect(() => {
         getInitialStats();
@@ -181,22 +181,24 @@ export const PlayerComparisonStats: React.FC<PlayerComparisonStatsProps> = ({fir
 
     const TableDataCenter = styled('td')({
         textAlign: 'center',
-        width: '100px'
+        width: '100px',
+        borderBottom: `1px ${colors.yellow} solid`,
     })
 
     const TableDataLeft = styled('td')({
         textAlign: 'right',
-        width: '80px'
+        width: '80px',
+        borderBottom: `1px ${colors.yellow} solid`,
     })
 
     const TableDataRight = styled('td')({
         textAlign: 'left',
-        width: '80px'
+        width: '80px',
+        borderBottom: `1px ${colors.yellow} solid`,
     })
 
     const TableRow = styled('tr')({
-        borderBottom: `1px ${colors.yellow[400]} solid`,
-        height: '30px'
+        height: '30px',
     })
 
     const StatsContainer = styled('div')({
@@ -210,8 +212,9 @@ export const PlayerComparisonStats: React.FC<PlayerComparisonStatsProps> = ({fir
         top: '80px',
         backgroundColor: 'black',
         color: 'white',
-        fontSize: '25px',
+        fontSize: '16px',
         display: 'flex',
+        height: '30px',
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: '10px'

@@ -78,7 +78,7 @@ export const PlayerComparisonHeader: React.FC<PropsWithChildren<PlayerComparison
                         <PlayerHeaderContainer>
                             <PlayerHeadshotNameContainer>
                                 <HeadshotContainer>
-                                    <HeadshotImage src={`${player?.profileUrl}`} alt={`${player?.lastName}`} />
+                                    <HeadshotImage title={`${player.bio ? player.bio : ''}`} src={`${player?.profileUrl}`} alt={`${player?.lastName}`} />
                                 </HeadshotContainer>
                             </PlayerHeadshotNameContainer>
                             <ProfileContainer>
