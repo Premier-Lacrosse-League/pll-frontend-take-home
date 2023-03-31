@@ -69,7 +69,7 @@ export interface Stats {
     twoPointGoalsAgainst: number | null;
     twoPtGaa: number | null;
     powerPlayGoalsAgainst: number | null;
-    faceoffPct: number | null,
+    faceoffPct: number | null;
     faceoffs: number | null;
     faceoffsLost: number | null;
     faceoffsWon: number | null;

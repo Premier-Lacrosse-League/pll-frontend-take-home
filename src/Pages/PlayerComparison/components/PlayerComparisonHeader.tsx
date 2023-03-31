@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import { Player } from '../models'
 
-export const PlayerComparisonHeader: React.FC<any> = ( player ) => {
+interface PlayerComparisonHeaderProps {
+    first: Player | null;
+    second: Player | null;
+}
+
+export const PlayerComparisonHeader: React.FC<PropsWithChildren<PlayerComparisonHeaderProps>> = ({first, second}) => {
     return (
-        <div></div>
+        <div>{first?.firstName + ' ' + first?.lastName} & {second?.firstName + ' ' + second?.lastName}</div>
     )
 }
